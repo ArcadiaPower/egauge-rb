@@ -44,7 +44,7 @@ Basic queries will return a response object. That object will have reader method
 
 If you're unsure what your headers are, there is a method you can use to find out!
 
-```
+```ruby
 client = Egauge::Client.new('http://egaugeurl.egaug.es/12345')
 response = client.query('cgi-bin/egauge-show', :h => nil, :n => 24, :f => 1522800000)
 

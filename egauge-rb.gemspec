@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "egauge/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "egauge"
+  spec.name          = "egauge-rb"
   spec.version       = Egauge::VERSION
   spec.authors       = ["Joey Ferguson"]
   spec.email         = ["fergmastaflex@gmail.com"]

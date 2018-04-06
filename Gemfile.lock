@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    egauge (0.1.0)
+    egauge-rb (0.1.0)
       activesupport
       httpclient
       nokogiri
@@ -51,7 +51,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.16)
-  egauge!
+  egauge-rb!
   pry
   rake (~> 10.0)
   rspec (~> 3.0)
