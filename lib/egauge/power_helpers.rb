@@ -6,7 +6,7 @@ module Egauge
       full_day_kwh = {}
       response = query("/cgi-bin/egauge-show?#{yesterday_query}")
       response.headers.each do |header|
-        full_day_kwh[header] = calculate_kwh(response.power_output[header])
+        full_day_kwh[header] = calculate_kwh(response.send(header))
       end
       full_day_kwh
     end

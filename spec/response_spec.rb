@@ -32,10 +32,15 @@ RSpec.describe Egauge::Response do
   subject { described_class.new(response_body) }
 
   it "should parse columns into structs" do
-    expect(subject.power_output.solar).to eq(expected_response)
+    expect(subject.solar).to eq(expected_response)
   end
 
   it "should parse headers properly" do
     expect(subject.headers).to eq(expected_headers)
+  end
+
+  it "should create reader methods for all headers" do
+    expect(subject).to respond_to(:solar)
+    expect(subject).to respond_to(:solar_)
   end
 end

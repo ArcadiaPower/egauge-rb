@@ -10,7 +10,7 @@ module Egauge
     end
 
     def query(endpoint, options = {})
-      Egauge::Response.new(client.get(endpoint, options))
+      Egauge::Response.new(client.get(endpoint, options).body)
     end
 
     private

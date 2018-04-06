@@ -6,7 +6,7 @@ RSpec.describe Egauge::Client do
   let(:response_body) { File.read('spec/fixtures/response.xml')  }
   before do
     allow(HTTPClient).to receive(:new).and_return(http_client)
-    allow(http_client).to receive(:get).and_return(response_body)
+    allow(http_client).to receive_message_chain(:get, :body).and_return(response_body)
   end
 
   subject { described_class.new(url) }
@@ -18,10 +18,10 @@ RSpec.describe Egauge::Client do
 
   it "should create a new response object" do
     expect(Egauge::Response).to receive(:new)
-    subject.query(params)
+    subject.query(endpoint, params)
   end
 
   it "should return a response object" do
-    expect(subject.query(params)).to be_a(Egauge::Response)
+    expect(subject.query(endpoint, params)).to be_a(Egauge::Response)
   end
 end

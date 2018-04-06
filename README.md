@@ -21,8 +21,42 @@ Or install it yourself as:
     $ gem install egauge
 
 ## Usage
+Using this gem requires some understanding of the [Egauge API](https://www.egauge.net/docs/egauge-xml-api.pdf).
 
-TODO: Write usage instructions here
+### Basic Query
+
+
+
+```ruby
+client = Egauge::Client.new('http://egauge37002.egaug.es/59404')
+# This nil is necessary because the query structure is 'h&n=24'
+client.query('cgi-bin/egauge-show', :h => nil, :n => 24, :f => 1522800000)
+```
+### Helper query
+There are helpers to query data for you without having to craft queries
+
+```ruby
+client = Egauge::Client.new('http://egauge37002.egaug.es/59404')
+client.full_day_kwh
+{:solar => 432, :solar2 => 486}
+```
+
+### Egauge response object
+Basic queries will return a response object. That object will have reader methods for each header that will return the rows of that header.
+
+If you're unsure what your headers are, there is a method you can use to find out!
+
+```
+client = Egauge::Client.new('http://egauge37002.egaug.es/59404')
+response = client.query('cgi-bin/egauge-show', :h => nil, :n => 24, :f => 1522800000)
+
+respones.headers
+=> ["solar", "solar2"]
+
+response.solar
+=> [123412341234, 123412341234, 123412341234]
+
+```
 
 ## Development
 

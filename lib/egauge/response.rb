@@ -5,18 +5,7 @@ module Egauge
   class Response
     def initialize(body)
       @body = Nokogiri.parse(body)
-    end
-
-    def power_output
-      # An argument could be made for using a hash instead of an openstruct here
-      # I used an openstruct to get behavior like `response.header_name`
-      @_output ||= begin
-        columns = OpenStruct.new
-        headers.each_with_index.map do |header, index|
-          columns.send("#{header}=", column_content(index))
-        end
-        columns
-      end
+      load_power_output
     end
 
     def headers
@@ -33,6 +22,12 @@ module Egauge
 
       def rows
         @_rows ||= body.css("r")
+      end
+
+      def load_power_output
+        headers.each_with_index do |header, index|
+          self.class.send(:define_method, header) { column_content(index) }
+        end
       end
   end
 end
