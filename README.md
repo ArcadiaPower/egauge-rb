@@ -28,7 +28,7 @@ Using this gem requires some understanding of the [Egauge API](https://www.egaug
 
 
 ```ruby
-client = Egauge::Client.new('http://egauge37002.egaug.es/59404')
+client = Egauge::Client.new('http://egaugeurl.egaug.es/12345')
 # This nil is necessary because the query structure is 'h&n=24'
 client.query('cgi-bin/egauge-show', :h => nil, :n => 24, :f => 1522800000)
 ```
@@ -36,7 +36,7 @@ client.query('cgi-bin/egauge-show', :h => nil, :n => 24, :f => 1522800000)
 There are helpers to query data for you without having to craft queries
 
 ```ruby
-client = Egauge::Client.new('http://egauge37002.egaug.es/59404')
+client = Egauge::Client.new('http://egaugeurl.egaug.es/12345')
 client.full_day_kwh
 {:solar => 432, :solar2 => 486}
 ```
@@ -47,7 +47,7 @@ Basic queries will return a response object. That object will have reader method
 If you're unsure what your headers are, there is a method you can use to find out!
 
 ```
-client = Egauge::Client.new('http://egauge37002.egaug.es/59404')
+client = Egauge::Client.new('http://egaugeurl.egaug.es/12345')
 response = client.query('cgi-bin/egauge-show', :h => nil, :n => 24, :f => 1522800000)
 
 respones.headers
