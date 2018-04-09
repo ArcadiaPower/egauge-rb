@@ -7,7 +7,7 @@ This is a Ruby wrapper around the Egauge API. It will execute requests from thei
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'egauge'
+gem 'egauge-rb'
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install egauge
+    $ gem install egauge-rb
 
 ## Usage
 Using this gem requires some understanding of the [Egauge API](https://www.egauge.net/docs/egauge-xml-api.pdf).
