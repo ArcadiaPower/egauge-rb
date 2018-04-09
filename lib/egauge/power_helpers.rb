@@ -18,7 +18,7 @@ module Egauge
       end
 
       def yesterday_query
-        "h&n=24&f=#{Date.yesterday.beginning_of_day.to_i}"
+        "h&n=24&f=#{Date.yesterday.end_of_day.to_i}"
       end
   end
 end
