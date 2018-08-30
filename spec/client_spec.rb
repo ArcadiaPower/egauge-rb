@@ -1,9 +1,9 @@
 RSpec.describe Egauge::Client do
   let(:http_client) { HTTPClient.new }
   let(:url) { 'http://foo.com' }
-  let(:params) { { :C => nil, :T => DateTime.now.beginning_of_day.to_i } }
+  let(:params) { { :C => nil, :T => Time.current.beginning_of_day.to_i } }
   let(:response_body) { File.read('spec/fixtures/response.xml')  }
-  let(:expected_query) { "/cgi-bin/egauge-show?C&T=#{DateTime.now.beginning_of_day.to_i}" }
+  let(:expected_query) { "/cgi-bin/egauge-show?C&T=#{Time.current.beginning_of_day.to_i}" }
 
   before do
     allow(HTTPClient).to receive(:new).and_return(http_client)

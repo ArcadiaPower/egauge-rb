@@ -19,8 +19,7 @@ module Egauge
 
       def query_string(options)
         options.stringify_keys.map do |key, value|
-          query_parameter = String.new
-          query_parameter << key
+          query_parameter = key.dup
           query_parameter << "=#{value.to_s}" unless value.nil?
           query_parameter
         end.join('&')

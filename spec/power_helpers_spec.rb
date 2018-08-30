@@ -14,7 +14,7 @@ RSpec.describe Egauge::PowerHelpers do
         :T => "#{Time.now.to_i},1533096000,1530417600,1527825600,1525147200,1522555200,1519880400"
       }
     }
-    it "should return a full day calculation of kwhs" do
+    it "should return monthly calculation of kwhs" do
       expect(subject).to receive(:query).with(expected_query)
       subject.monthly_kwh(6)
     end
