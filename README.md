@@ -22,29 +22,28 @@ Or install it yourself as:
 Using this gem requires some understanding of the [Egauge API](https://www.egauge.net/docs/egauge-xml-api.pdf).
 
 ### Basic Query
-
-
-
+Queries return response objects that can be interacted with. More details on the response object are found below.
 ```ruby
+require 'egauge'
 client = Egauge::Client.new('http://egaugeurl.egaug.es/12345')
 # This nil is necessary because the query structure is 'h&n=24'
-client.query('cgi-bin/egauge-show', :h => nil, :n => 24, :f => 1522800000)
+client.query(:h => nil, :n => 24, :f => 1522800000)
 ```
 ### Helper query
-There are helpers to query data for you without having to craft queries
-
+There are helpers to query data for you without having to craft queries. These also return response objects.
 ```ruby
+require 'egauge'
 client = Egauge::Client.new('http://egaugeurl.egaug.es/12345')
 client.full_day_kwh
-{:solar => 432, :solar2 => 486}
 ```
 
 ### Egauge response object
-Basic queries will return a response object. That object will have reader methods for each header that will return the rows of that header.
+Queries will return a response object. That object will have reader methods for each header that will return the rows of that header.
 
 If you're unsure what your headers are, there is a method you can use to find out!
 
 ```ruby
+require 'egauge'
 client = Egauge::Client.new('http://egaugeurl.egaug.es/12345')
 response = client.query('cgi-bin/egauge-show', :h => nil, :n => 24, :f => 1522800000)
 
