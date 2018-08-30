@@ -2,23 +2,20 @@ module Egauge
   module PowerHelpers
     KWH_DIVIDER = 3600000
 
-    def full_day_kwh
-      full_day_kwh = {}
-      response = query("/cgi-bin/egauge-show?#{yesterday_query}")
-      response.headers.each do |header|
-        full_day_kwh[header] = calculate_kwh(response.send(header))
-      end
-      full_day_kwh
+    def full_day_kwh(day = Time.zone.now.end_of_day.to_i)
+      query(:C => nil, :h => nil, :n => 24, :f => day)
+    end
+
+    def monthly_kwh(number_of_months = 12)
+      query(:C => nil, :T => months(number_of_months))
     end
 
     private
 
-      def calculate_kwh(power_output)
-        (power_output.first - power_output.last) / KWH_DIVIDER
-      end
-
-      def yesterday_query
-        "h&n=24&f=#{Date.yesterday.end_of_day.to_i}"
+      def months(number_of_months)
+        number_of_months.times.map do |number|
+          number.months.ago.beginning_of_month.to_i
+        end.unshift(Time.current.to_i).join(',')
       end
   end
 end

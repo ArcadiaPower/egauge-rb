@@ -1,8 +1,9 @@
 require 'nokogiri'
-require 'ostruct'
 
 module Egauge
   class Response
+    KWH_DIVIDER = 3600000
+
     def initialize(body)
       @body = Nokogiri.parse(body)
       load_power_output
@@ -17,7 +18,7 @@ module Egauge
       attr_reader :body
 
       def column_content(header_index)
-        rows.map { |row| row.css("c").children[header_index].text.to_i }
+        rows.map { |row| (row.css("c").children[header_index].text.to_i / KWH_DIVIDER).abs }
       end
 
       def rows
