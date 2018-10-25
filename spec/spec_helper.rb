@@ -1,4 +1,5 @@
 require "bundler/setup"
+require "timecop"
 require "egauge"
 
 RSpec.configure do |config|
