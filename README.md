@@ -29,12 +29,22 @@ client = Egauge::Client.new('http://<device_name>.egaug.es')
 # This nil is necessary because the query structure is 'h&n=24'
 client.query(:h => nil, :n => 24, :f => 1522800000)
 ```
-### Helper query
+### Helper queries
 There are helpers to query data for you without having to craft queries. These also return response objects.
 ```ruby
 require 'egauge'
 client = Egauge::Client.new('http://<device_name>.egaug.es')
 client.full_day_kwh
+client.monthly_kwh
+```
+#### Past 24 Hour Breakdown
+This method works like the other helper methods but also accepts a boolean flag to receive the response as an array
+of hashes (The response actually comes back as a CSV string which is then parsed).
+```ruby
+require 'egauge'
+client = Egauge::Client.new('http://<device_name>.egaug.es')
+client.past_24_hrs_kwh       # XML Response
+client.past_24_hrs_kwh(true) # A parsed CSV Response
 ```
 
 ### Egauge response object
