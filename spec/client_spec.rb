@@ -25,4 +25,23 @@ RSpec.describe Egauge::Client do
   it "should return a response object" do
     expect(subject.query(params)).to be_a(Egauge::Response)
   end
+
+   context "csv request" do
+     let(:response_body) { File.read('spec/fixtures/response.csv') }
+     let(:parsed_response) do
+       [
+         {
+           "Date & Time" => "1539709200",
+           "Usage [kWh]" => "0.000000000",
+           "Generation [kWh]" => "150006.751666667",
+           "Solar [kWh]" => "150006.751666667",
+           "Solar+ [kWh]" => "150085.831640556"
+         }
+       ]
+     end
+
+     it "parses the response" do
+       expect(subject.csv_query(params)).to eq(parsed_response)
+     end
+   end
 end
