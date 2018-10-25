@@ -10,6 +10,21 @@ module Egauge
       query(:C => nil, :T => months(number_of_months))
     end
 
+    def past_24_hrs_kwh(csv=false)
+      end_time = Time.now.beginning_of_hour
+      ar = []
+      24.times do |i|
+        ar << (end_time - i.hours).to_i
+      end
+
+      options = {T: ar.join(",")}
+      if csv
+        csv_query(options)
+      else
+        query(options)
+      end
+    end
+
     private
 
       def months(number_of_months)

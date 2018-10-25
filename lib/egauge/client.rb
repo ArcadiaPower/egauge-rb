@@ -1,4 +1,5 @@
 require 'httpclient'
+require 'csv'
 
 module Egauge
   class Client
@@ -12,6 +13,14 @@ module Egauge
 
     def query(options = {})
       Egauge::Response.new(client.get(EGAUGE_PATH + query_string(options)).body)
+    end
+
+    def csv_query(options)
+      options[:c] = nil
+      csv_str = client.get(EGAUGE_PATH + query_string(options)).body
+      records = []
+      CSV.parse(csv_str, headers: true){|l| records << l.to_h }
+      records
     end
 
     private
