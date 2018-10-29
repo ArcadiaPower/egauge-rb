@@ -21,48 +21,29 @@ Or install it yourself as:
 ## Usage
 Using this gem requires some understanding of the [Egauge API](https://www.egauge.net/docs/egauge-xml-api.pdf).
 
-### Basic Query
-Queries return response objects that can be interacted with. More details on the response object are found below.
 ```ruby
 require 'egauge'
 client = Egauge::Client.new('http://<device_name>.egaug.es')
-# This nil is necessary because the query structure is 'h&n=24'
-client.query(:h => nil, :n => 24, :f => 1522800000)
 ```
-### Helper queries
-There are helpers to query data for you without having to craft queries. These also return response objects.
-```ruby
-require 'egauge'
-client = Egauge::Client.new('http://<device_name>.egaug.es')
-client.full_day_kwh
-client.monthly_kwh
-```
-#### Past 24 Hour Breakdown
-This method works like the other helper methods but also accepts a boolean flag to receive the response as an array
-of hashes (The response actually comes back as a CSV string which is then parsed).
-```ruby
-require 'egauge'
-client = Egauge::Client.new('http://<device_name>.egaug.es')
-client.past_24_hrs_kwh       # XML Response
-client.past_24_hrs_kwh(true) # A parsed CSV Response
-```
-
-### Egauge response object
-Queries will return a response object. That object will have reader methods for each header that will return the rows of that header.
-
-If you're unsure what your headers are, there is a method you can use to find out!
+The client implements a `fetch` method which takes hash that needs these values set
+ - `:timestamp` (timestamp) - This is the point in time
+ from which to fetch past readings. The "latest" reading
+ will be the beginning of the current period breakdown.
+ For instance if the timestamp is `2018-10-20 13:06` and
+ the breakdown is hourly, the latest reading will be
+ from `2018-10-20 13:00`.
+ - `:breakdown` (symbol) - This defines the time period
+ between the readings. This can be `:hour`, `:day` or `:month`.
+ - `:count` (integer) - Number of past readings to fetch.
 
 ```ruby
-require 'egauge'
-client = Egauge::Client.new('http://<device_name>.egaug.es')
-response = client.query(:h => nil, :n => 24, :f => 1522800000)
-
-response.headers
-=> ["solar", "solar2"]
-
-response.solar
-=> [123412341234, 123412341234, 123412341234]
-
+options = { :timestamp => 2018-10-26 21:47:23 -0400, :breakdown => :hour, :count => 3 }
+client.fetch(options)
+[
+  {"Date & Time"=>"1540602000", "Usage [kWh]"=>"0.000000000", "Generation [kWh]"=>"155625.220777500", "Solar [kWh]"=>"155625.220777500", "Solar+ [kWh]"=>"155707.304512778"},
+  {"Date & Time"=>"1540598400", "Usage [kWh]"=>"0.000000000", "Generation [kWh]"=>"155625.240751111", "Solar [kWh]"=>"155625.240751111", "Solar+ [kWh]"=>"155707.304512778"},
+  {"Date & Time"=>"1540594800", "Usage [kWh]"=>"0.000000000", "Generation [kWh]"=>"155625.262013333", "Solar [kWh]"=>"155625.262013333", "Solar+ [kWh]"=>"155707.304512778"}
+]
 ```
 
 ## Development
