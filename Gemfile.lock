@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    egauge-rb (0.2.0)
+    egauge-rb (1.0.0)
       activesupport (= 5.2.1)
       httpclient
       nokogiri (= 1.8.5)
