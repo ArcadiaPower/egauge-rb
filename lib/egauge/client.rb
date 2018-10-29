@@ -3,8 +3,6 @@ require 'csv'
 
 module Egauge
   class Client
-    include Egauge::PowerHelpers
-
     EGAUGE_PATH = '/cgi-bin/egauge-show?'.freeze
 
     def initialize(base_url)
