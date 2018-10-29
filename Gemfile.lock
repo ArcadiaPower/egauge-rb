@@ -43,7 +43,6 @@ GEM
       rspec-support (~> 3.7.0)
     rspec-support (3.7.1)
     thread_safe (0.3.6)
-    timecop (0.9.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
 
@@ -56,7 +55,6 @@ DEPENDENCIES
   pry
   rake (~> 10.0)
   rspec (~> 3.0)
-  timecop (~> 0.9.1)
 
 BUNDLED WITH
    1.16.2
