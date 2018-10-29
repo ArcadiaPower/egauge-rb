@@ -5,10 +5,29 @@ module Egauge
   class Client
     EGAUGE_PATH = '/cgi-bin/egauge-show?'.freeze
 
+    # The base_url should look something like
+    # this: 'http://egauge12345.egaug.es'
     def initialize(base_url)
       @client = HTTPClient.new(base_url: base_url)
     end
 
+    # The options hash should have 3 keys defined:
+    # 1. :timestamp (timestamp) - This is the point in time
+    #    from which to fetch past readings. The "latest" reading
+    #    will be the beginning of the current period breakdown.
+    #    For instance if the timestamp is 2018-10-20 13:06 and
+    #    the breakdown is hourly, the latest reading will be
+    #    from 2018-10-20 13:00
+    # 2. :breakdown (symbol) - This defines the time period
+    #    between the readings. This can be :hour, :day or :month
+    # 3. :count (integer) - Number of past readings to fetch
+    #
+    # This method returns an array of hashes with these values
+    #   - "Date & Time" (An integer representing time since epoc)
+    #   - "Usage [kWh]"
+    #   - "Generation [kWh]"
+    #   - "Solar [kWh]"
+    #   - "Solar+ [kWh]"
     def fetch(options)
       timestamps = build_timestamps(options)
       params = { T: timestamps.join(","), c: nil }
@@ -19,14 +38,14 @@ module Egauge
       attr_reader :client
 
       def build_timestamps(options)
-        end_time    = options[:end_time]
-        granularity = options[:granularity]
-        iterations  = options[:iterations]
+        timestamp = options[:timestamp]
+        breakdown = options[:breakdown]
+        count     = options[:count]
 
-        end_time = end_time.send("beginning_of_#{granularity}".to_sym)
-        time_method = "#{granularity}s"
+        end_time = timestamp.send("beginning_of_#{breakdown}".to_sym)
+        time_method = "#{breakdown}s"
         timestamps = []
-        iterations.times do |i|
+        count.times do |i|
           timestamps << (end_time - i.send(time_method)).to_i
         end
         timestamps

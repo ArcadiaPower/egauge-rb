@@ -2,9 +2,9 @@ RSpec.describe Egauge::Client do
   context "fetch" do
     let(:options) do
       {
-        end_time: Time.at(1539709500),
-        granularity: "hour",
-        iterations: 3
+        timestamp: Time.at(1539709500),
+        breakdown: "hour",
+        count: 3
       }
     end
 
