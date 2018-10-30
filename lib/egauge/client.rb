@@ -23,7 +23,7 @@ module Egauge
     # 3. :count [Integer] - Number of past readings to fetch
     #
     # This method returns an array of hashes with these values
-    #   - "Date & Time" (An integer representing time since epoc)
+    #   - "Date & Time" (An integer representing time since epoch)
     #   - "Usage [kWh]"
     #   - "Generation [kWh]"
     #   - "Solar [kWh]"
