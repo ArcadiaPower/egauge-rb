@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "httpclient"
-  spec.add_dependency "nokogiri", "1.8.5"
+  spec.add_dependency "nokogiri", "1.13.4"
   spec.add_dependency "activesupport", "5.2.1"
 
   spec.add_development_dependency "bundler", "~> 1.16"
