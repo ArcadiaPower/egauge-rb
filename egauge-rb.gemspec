@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "httpclient"
   spec.add_dependency "nokogiri", "1.8.5"
-  spec.add_dependency "activesupport", "5.2.1"
+  spec.add_dependency "activesupport", "7.0.7"
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
